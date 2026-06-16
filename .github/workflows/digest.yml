@@ -1,0 +1,36 @@
+name: Daily Digest
+
+on:
+  schedule:
+    - cron: '0 15 * * *'  # 8am MST (UTC-7)
+  workflow_dispatch:
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Send daily digest
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          DIGEST_EMAIL: ${{ secrets.ENTRY_EMAIL_1 }}
+          DIGEST_APP_PASSWORD: ${{ secrets.GMAIL_ACCOUNT_1_APP_PASSWORD }}
+        run: python -m digest.send_daily
+
+      - name: Alert on failure
+        if: failure()
+        env:
+          DIGEST_EMAIL: ${{ secrets.ENTRY_EMAIL_1 }}
+          DIGEST_APP_PASSWORD: ${{ secrets.GMAIL_ACCOUNT_1_APP_PASSWORD }}
+        run: python -m utils.alert "${{ github.workflow }}" "${{ github.run_id }}"
