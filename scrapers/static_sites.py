@@ -5,13 +5,11 @@ STATIC_SITES = [
     {"source": "radio",      "url": "https://x96.com/contests"},
     {"source": "radio",      "url": "https://www.mix1051.com/contests"},
     {"source": "radio",      "url": "https://www.kubl.com/contests"},
-    {"source": "radio",      "url": "https://www.hits1015.com/contests"},
-    {"source": "restaurant", "url": "https://www.costavida.com/deals"},
-    {"source": "restaurant", "url": "https://www.jcwsburgers.com"},
     {"source": "restaurant", "url": "https://www.swignsweets.com"},
-    {"source": "restaurant", "url": "https://www.cubbysslc.com"},
-    {"source": "restaurant", "url": "https://www.redrobin.com/specials"},
-    # Excluded: Chick-fil-A (app-gated), Groupon (bot detection)
+    {"source": "restaurant", "url": "https://www.costavida.com/promotions"},
+    {"source": "restaurant", "url": "https://www.redrobin.com/offers"},
+    # Excluded: hits1015.com (DNS dead), jcwsburgers.com (DNS dead),
+    #           cubbysslc.com (DNS dead), Chick-fil-A (app-gated), Groupon (bot detection)
 ]
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; slc-deal-bot/1.0)"}

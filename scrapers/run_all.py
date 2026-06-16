@@ -51,6 +51,8 @@ def main():
                 )
                 parsed["flagged_manual"] = parsed.pop("requires_manual_entry")
                 parsed.pop("is_slc_utah_relevant", None)
+                # Clamp value_score to valid DB range (1-10)
+                parsed["value_score"] = max(1, min(10, int(parsed.get("value_score") or 1)))
                 deals.append(parsed)
         except Exception as e:
             print(f"[WARN] Parse failed for {item.get('url')}: {e}")
