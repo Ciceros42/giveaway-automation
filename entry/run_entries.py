@@ -12,7 +12,7 @@ from entry.form_entry import enter_giveaway
 
 def pick_account(deal_id_str: str) -> dict:
     """UUID-safe round-robin: hash UUID hex to int, mod 3."""
-    idx = int(deal_id_str.replace("-", ""), 16) % 3
+    idx = int(deal_id_str.replace("-", ""), 16) % len(config.ACCOUNTS)
     return config.ACCOUNTS[idx]
 
 
@@ -36,7 +36,7 @@ def main():
 
     print(f"[INFO] Attempting entry for {len(rows)} giveaways")
 
-    # Run all entries concurrently (Semaphore(3) inside form_entry limits CAPTCHA concurrency)
+    # Run all entries concurrently
     tasks = [enter_giveaway(deal, pick_account(deal["id"])) for deal in rows]
     results = asyncio.run(asyncio.gather(*tasks, return_exceptions=True))
 

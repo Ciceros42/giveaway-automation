@@ -4,7 +4,6 @@ SUPABASE_URL         = os.environ["SUPABASE_URL"]
 SUPABASE_SERVICE_KEY = os.environ["SUPABASE_SERVICE_KEY"]
 OPENAI_API_KEY       = os.environ.get("OPENAI_API_KEY", "")
 BRAVE_API_KEY        = os.environ.get("BRAVE_API_KEY", "")
-TWOCAPTCHA_API_KEY   = os.environ.get("TWOCAPTCHA_API_KEY", "")
 DIGEST_TARGET        = os.environ.get("DIGEST_TARGET", "reurichards@gmail.com")
 FORWARD_TO           = os.environ.get("FORWARD_TO",    "reurichards@gmail.com")
 

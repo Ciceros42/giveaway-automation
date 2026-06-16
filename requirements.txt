@@ -1,6 +1,5 @@
 openai>=1.0.0
 playwright==1.60.0
-2captcha-python>=2.0.7
 supabase>=2.0.0
 trafilatura>=1.12.0
 requests>=2.32.0
