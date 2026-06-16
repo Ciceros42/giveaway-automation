@@ -15,34 +15,33 @@ QUERIES = [
     '"salt lake" free food deal this week',
 ]
 
-BRAVE_SEARCH_URL = "https://api.search.brave.com/res/v1/web/search"
+TAVILY_URL = "https://api.tavily.com/search"
 
 
 class SearchScraper(BaseScraper):
     def scrape(self) -> list[dict]:
         results = []
-        headers = {
-            "Accept": "application/json",
-            "Accept-Encoding": "gzip",
-            "X-Subscription-Token": config.BRAVE_API_KEY,
-        }
         for query in QUERIES:
             try:
-                resp = requests.get(
-                    BRAVE_SEARCH_URL,
-                    headers=headers,
-                    params={"q": query, "count": 10},
-                    timeout=10,
+                resp = requests.post(
+                    TAVILY_URL,
+                    json={
+                        "api_key": config.TAVILY_API_KEY,
+                        "query": query,
+                        "max_results": 10,
+                        "search_depth": "basic",
+                    },
+                    timeout=15,
                 )
                 resp.raise_for_status()
                 data = resp.json()
-                for item in data.get("web", {}).get("results", []):
+                for item in data.get("results", []):
                     results.append({
                         "source": "search",
                         "title":  item.get("title", ""),
-                        "text":   item.get("description", "") + "\n" + item.get("title", ""),
+                        "text":   item.get("content", "") + "\n" + item.get("title", ""),
                         "url":    item.get("url", ""),
                     })
             except Exception as e:
-                print(f"[WARN] Brave search failed for '{query}': {e}")
+                print(f"[WARN] Tavily search failed for '{query}': {e}")
         return results
