@@ -30,13 +30,13 @@ jobs:
           GMAIL_ACCOUNT_1_APP_PASSWORD: ${{ secrets.GMAIL_ACCOUNT_1_APP_PASSWORD }}
           GMAIL_ACCOUNT_2_APP_PASSWORD: ${{ secrets.GMAIL_ACCOUNT_2_APP_PASSWORD }}
           GMAIL_ACCOUNT_3_APP_PASSWORD: ${{ secrets.GMAIL_ACCOUNT_3_APP_PASSWORD }}
-          DIGEST_EMAIL: ${{ secrets.ENTRY_EMAIL_1 }}
-          DIGEST_APP_PASSWORD: ${{ secrets.GMAIL_ACCOUNT_1_APP_PASSWORD }}
+          DIGEST_SENDER_EMAIL: ${{ secrets.DIGEST_SENDER_EMAIL }}
+          DIGEST_SENDER_APP_PASSWORD: ${{ secrets.DIGEST_SENDER_APP_PASSWORD }}
         run: python -m monitoring.inbox
 
       - name: Alert on failure
         if: failure()
         env:
-          DIGEST_EMAIL: ${{ secrets.ENTRY_EMAIL_1 }}
-          DIGEST_APP_PASSWORD: ${{ secrets.GMAIL_ACCOUNT_1_APP_PASSWORD }}
+          DIGEST_SENDER_EMAIL: ${{ secrets.DIGEST_SENDER_EMAIL }}
+          DIGEST_SENDER_APP_PASSWORD: ${{ secrets.DIGEST_SENDER_APP_PASSWORD }}
         run: python -m utils.alert "${{ github.workflow }}" "${{ github.run_id }}"

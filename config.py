@@ -18,5 +18,7 @@ def _account(n: int) -> dict | None:
 ACCOUNTS = [a for a in (_account(1), _account(2), _account(3)) if a]
 
 MONITORED_ACCOUNTS  = ACCOUNTS
-DIGEST_EMAIL        = ACCOUNTS[0]["email"] if ACCOUNTS else ""
-DIGEST_APP_PASSWORD = ACCOUNTS[0]["app_password"] if ACCOUNTS else ""
+
+# Dedicated sender account (reurichards@gmail.com) — separate from entry accounts
+DIGEST_EMAIL        = os.environ.get("DIGEST_SENDER_EMAIL", "")
+DIGEST_APP_PASSWORD = os.environ.get("DIGEST_SENDER_APP_PASSWORD", "")
