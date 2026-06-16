@@ -1,8 +1,8 @@
 name: Scrape Deals
 
 on:
-  schedule:
-    - cron: '0 1,13 * * *'  # 6am and 6pm MST (UTC-7)
+  # schedule:
+  #   - cron: '0 1,13 * * *'  # 6am and 6pm MST (UTC-7) — paused
   workflow_dispatch:
 
 jobs:

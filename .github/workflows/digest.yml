@@ -1,8 +1,8 @@
 name: Daily Digest
 
 on:
-  schedule:
-    - cron: '0 15 * * *'  # 8am MST (UTC-7)
+  # schedule:
+  #   - cron: '0 15 * * *'  # 8am MST (UTC-7) — paused
   workflow_dispatch:
 
 jobs:
