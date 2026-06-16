@@ -36,9 +36,13 @@ def main():
 
     print(f"[INFO] Attempting entry for {len(rows)} giveaways")
 
-    # Run all entries concurrently
-    tasks = [enter_giveaway(deal, pick_account(deal["id"])) for deal in rows]
-    results = asyncio.run(asyncio.gather(*tasks, return_exceptions=True))
+    async def run_all():
+        return await asyncio.gather(
+            *[enter_giveaway(deal, pick_account(deal["id"])) for deal in rows],
+            return_exceptions=True,
+        )
+
+    results = asyncio.run(run_all())
 
     entered_count = 0
     for deal, result in zip(rows, results):
