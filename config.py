@@ -17,9 +17,6 @@ def _account(n: int) -> dict | None:
 
 ACCOUNTS = [a for a in (_account(1), _account(2), _account(3)) if a]
 
-if not ACCOUNTS:
-    raise RuntimeError("At least one entry account (ENTRY_EMAIL_1 + GMAIL_ACCOUNT_1_APP_PASSWORD) must be configured.")
-
 MONITORED_ACCOUNTS  = ACCOUNTS
-DIGEST_EMAIL        = ACCOUNTS[0]["email"]
-DIGEST_APP_PASSWORD = ACCOUNTS[0]["app_password"]
+DIGEST_EMAIL        = ACCOUNTS[0]["email"] if ACCOUNTS else ""
+DIGEST_APP_PASSWORD = ACCOUNTS[0]["app_password"] if ACCOUNTS else ""
